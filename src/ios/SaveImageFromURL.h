@@ -16,5 +16,6 @@
 
 // Saves an image from URL to the 'Saved Photos' album
 - (void)saveImage:(CDVInvokedUrlCommand*)command;
+- (void)saveVideo:(CDVInvokedUrlCommand*)command;
 
 @end

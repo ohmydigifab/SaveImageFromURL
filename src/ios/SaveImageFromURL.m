@@ -25,6 +25,22 @@
 	
 }
 
+- (void) saveVideo:(CDVInvokedUrlCommand*)command
+{
+	NSDictionary *options = command.arguments[0];
+	NSString *url = [options objectForKey:@"url"];
+	self.cbMethod=[[options objectForKey:@"cbMethod"] description];
+	
+	NSURL *sourceURL = [NSURL URLWithString:url];
+	NSURLSessionTask *download = [[NSURLSession sharedSession] downloadTaskWithURL:sourceURL completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+	    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+	    NSURL *tempURL = [documentsURL URLByAppendingPathComponent:[sourceURL lastPathComponent]];
+	    [[NSFileManager defaultManager] moveItemAtURL:location toURL:tempURL error:nil];
+	    UISaveVideoAtPathToSavedPhotosAlbum(tempURL.path, nil, NULL, NULL);
+	}];
+	[download resume];
+}
+
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
     
