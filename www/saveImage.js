@@ -22,7 +22,7 @@ SaveImage.prototype = {
      * Save videos from URL.
      */
     saveVideoFromURL: function (url, cbRef) {
-			   cordova.exec(null, null, 'SaveVideo', 'saveVideo', [{url: url, cbMethod : cbRef}]);
+			   cordova.exec(null, null, 'SaveImage', 'saveVideo', [{url: url, cbMethod : cbRef}]);
     }
 		   
 };
